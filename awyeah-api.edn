@@ -1,0 +1,3 @@
+{com.grzm/awyeah-api {:git/url "https://github.com/grzm/awyeah-api"
+                      :git/sha "9257dc0159640e46803d69210cae838d411f1789"
+                      :git/tag "v0.8.41"}}
