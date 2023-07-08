@@ -1,5 +1,7 @@
 # add-aws-deps
 
+[![lint - clj](https://github.com/joakimen/add-aws-deps/actions/workflows/lint.yml/badge.svg)](https://github.com/joakimen/add-aws-deps/actions/workflows/lint.yml)
+
 CLI for adding aws libraries from [cognitect/aws-api](https://github.com/cognitect-labs/aws-api) to your project.
 
 ## Description
