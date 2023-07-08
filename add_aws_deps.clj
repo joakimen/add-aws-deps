@@ -5,7 +5,7 @@
 
 (def api-version-url "https://raw.githubusercontent.com/cognitect-labs/aws-api/main/latest-releases.edn")
 
-(defn get-versions
+(defn query-cognitect-versions
   "fetch latest api versions from cognitect repo"
   []
   (let [{:keys [status body]} (http/get api-version-url)]
@@ -22,11 +22,10 @@
 (defn select-deps
   "select one or more deps from the list"
   [deps]
-  (->> (seq deps)
+  (->> (keys deps)
        (fzf {:multi true})
        (map read-string)
-       flatten
-       (apply hash-map)))
+       (select-keys deps)))
 
 (defn add-deps
   "write `deps` to the `:deps`-key of `outfile`, merging if deps already exists"
@@ -37,10 +36,13 @@
     (spit file (zprint-str updated-content {:map {:sort? false
                                                   :comma? false}}))))
 
+(defn get-all-versions []
+  (let [cognitect-versions (parse-versions (query-cognitect-versions))
+        awyeah-versions (-> "awyeah-api.edn" slurp read-string)]
+    (merge cognitect-versions awyeah-versions)))
+
 (let [outfile (or (first *command-line-args*) "deps.edn")
-      body (get-versions)
-      all-versions (parse-versions body)
-      selected-versions (select-deps all-versions)]
+      selected-versions (select-deps (get-all-versions))]
   (when-not (empty? selected-versions)
     (println "adding" (-> selected-versions keys count) "dependencies to:" outfile)
     (doseq [[k v] selected-versions]
