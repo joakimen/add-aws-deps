@@ -1,5 +1,5 @@
 (ns add-aws-deps
-  (:require [babashka.http-client :as c]
+  (:require [babashka.http-client :as http]
             [fzf.core :refer [fzf]]
             [zprint.core :refer [zprint-str]]))
 
@@ -8,7 +8,7 @@
 (defn get-versions
   "fetch latest api versions from cognitect repo"
   []
-  (let [{:keys [status body]} (c/get api-version-url)]
+  (let [{:keys [status body]} (http/get api-version-url)]
     (when-not (= 200 status)
       (throw (ex-info (str "non-200 response from api version url: " api-version-url) {:babashka/exit 1})))
     body))
