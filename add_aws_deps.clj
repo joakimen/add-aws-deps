@@ -1,4 +1,4 @@
-(ns add-aws-dep
+(ns add-aws-deps
   (:require [babashka.http-client :as c]
             [fzf.core :refer [fzf]]
             [zprint.core :refer [zprint-str]]))
