@@ -2,6 +2,10 @@
 
 CLI for adding aws libraries from [cognitect/aws-api](https://github.com/cognitect-labs/aws-api) to your project.
 
+## Description
+
+Scrapes latest api-versions from <https://github.com/cognitect-labs/aws-api/blob/main/latest-releases.edn>, lets user choose one or more libraries, then merges them into the `:deps`-section of your `deps.edn` (or custom file, if specified).
+
 ## Requirements
 
 - [fzf](https://github.com/junegunn/fzf)
@@ -11,7 +15,11 @@ CLI for adding aws libraries from [cognitect/aws-api](https://github.com/cognite
 
 ### Install
 
-TODO
+Using [bbin](https://github.com/babashka/bbin):
+
+```bash
+bbin install io.github.joakimen/add-aws-deps
+```
 
 ### Example usage
 
