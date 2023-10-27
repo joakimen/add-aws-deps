@@ -1,7 +1,8 @@
 (ns add-aws-deps
   (:require [babashka.http-client :as http]
             [fzf.core :refer [fzf]]
-            [zprint.core :refer [zprint-str]]))
+            [zprint.core :refer [zprint-str]]
+            [clojure.java.io :as io]))
 
 (def api-version-url "https://raw.githubusercontent.com/cognitect-labs/aws-api/main/latest-releases.edn")
 
@@ -35,10 +36,9 @@
         updated-content (update content :deps merge deps)]
     (spit file (zprint-str updated-content {:map {:sort? false
                                                   :comma? false}}))))
-
 (defn get-all-versions []
   (let [cognitect-versions (parse-versions (query-cognitect-versions))
-        awyeah-versions (-> "awyeah-api.edn" slurp read-string)]
+        awyeah-versions (-> (io/resource "awyeah-api.edn") slurp read-string)]
     (merge cognitect-versions awyeah-versions)))
 
 (let [outfile (or (first *command-line-args*) "deps.edn")

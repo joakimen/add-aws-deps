@@ -1,2 +1,3 @@
-{:bbin/bin {add-aws-deps {:main-opts ["-f" "add_aws_deps.clj"]}}
+{:paths ["."]
+ :bbin/bin {add-aws-deps {:main-opts ["-f" "add_aws_deps.clj"]}}
  :deps {io.github.joakimen/add-aws-deps {:local/root "."}}}
